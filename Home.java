@@ -12,6 +12,7 @@ public class Home extends Application{
 
 	@Override
 	public void start(Stage stage){
+		System.out.println("c, ");
 		Label label = new Label();
 		label.setText("Battery is Running Low!\n" + Battery.level() + "% remaining.");
 		StackPane stackPane = new StackPane();
@@ -20,9 +21,12 @@ public class Home extends Application{
 		stage.setScene(scene);
 		stage.setTitle(title);
 		stage.show();
+		System.out.println("Staging...");
 	}
 
 	public static void display() {
-		launch((String[])null);	
+		System.out.print("a, ");
+		launch((String[])null);
+		System.out.println("b, ");	
 	}
 }
