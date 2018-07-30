@@ -1,32 +1,28 @@
 public class Main{
-	private static int threshold = 41;
-	public static String homePath = "/home/saketh/Documents/cron_jobs/battery_alarm";
-	private static String alreadyWarnedFile = homePath + "/already_warned.txt";
+	public static String homePath = null;
+	public static int threshold = 81;
 
 	public static void main(String[] args){
-		int level = Battery.getLevel();
-		boolean isCharging = Battery.isCharging();
-		boolean alreadyWarned = alreadyWarned();
-		if(level <= threshold && (!isCharging) && (!alreadyWarned)){
-			Home.display(level);
-			if(!alreadyWarned){
-				TextFile.write(alreadyWarnedFile, "1");
-			}
-		}
-		if(isCharging){
-			TextFile.write(alreadyWarnedFile, "0");
+		if(args[0].equals("install")){
+			DirChooser.display();
+		}else if(args[0].equals("check")){
+			BatteryChecker.check();
 		}
 	}
+	
+	public static int getThreshold(){
+		return threshold;
+	}
 
-	private static boolean alreadyWarned(){
-		String strData = TextFile.read(alreadyWarnedFile);
-		if(strData.isEmpty()){
-			return false;
-		}
-		int intData = Integer.valueOf(strData);
-		if(intData == 0){
-			return false;
-		}
-		return true;
+	public static void setThreshold(int threshold){
+		Main.threshold = threshold;
+	}
+
+	public static String getHomePath(){
+		return homePath;
+	}
+	
+	public static void setHomePath(String homePath){
+		Main.homePath = homePath;
 	}
 }
