@@ -3,9 +3,9 @@ import java.io.InputStreamReader;
 
 public class Battery{
 	private static String command = "cat /sys/class/power_supply/BAT0/capacity";
-	private static int threshold = 41;
-
-	public static int getLevel(){
+	private static int curLevel = -1;
+		
+	public static int computeLevel(){
 		Process process = null;
 		BufferedReader bufferedReader = null;
 		String currentLine = null;
@@ -23,7 +23,11 @@ public class Battery{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return Integer.valueOf(output.toString());
+		curLevel = Integer.valueOf(output.toString());
+		return curLevel;
 	}
 
+	public static int level(){
+		return curLevel;
+	}
 }

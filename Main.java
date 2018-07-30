@@ -1,5 +1,10 @@
 public class Main{
+	private static int threshold = 41;
+
 	public static void main(String[] args){
-		System.out.println(Battery.getLevel());
+		int curBat = Battery.computeLevel();
+		if(curBat <= threshold){
+			Home.display();
+		}
 	}
 }
