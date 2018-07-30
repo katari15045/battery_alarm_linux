@@ -1,2 +1,2 @@
 export DISPLAY=:0
-java -cp $1 Main
+java -cp "/home/saketh/Documents/cron_jobs/battery_alarm" Main

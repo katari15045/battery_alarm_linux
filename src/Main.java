@@ -13,7 +13,7 @@ public class Main{
 				TextFile.write(alreadyWarnedFile, "1");
 			}
 		}
-		if(level > threshold){
+		if(isCharging){
 			TextFile.write(alreadyWarnedFile, "0");
 		}
 	}
