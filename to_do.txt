@@ -1,0 +1,3 @@
+1. homePath should be consistent accross all the systems; while installing the application, ask the user about the installation directory so that you can use installation directory in - crontab, crontab's shellScript, creating alreadyWarned.txt etc
+
+2. Provide the user an option to customize the threshold - 10 to 97
