@@ -1,7 +1,5 @@
 
 1. Provide the user an option to customize the threshold - 10 to 97
 
-2. The warning message should be styled by increasing the font size of 1st line, 41% in 2nd line; also try changing the font color, style etc
-
-3. Before appending a line in the crontab, check if the line that you are going to append is already present
+2. Before appending a line in the crontab, check if the line that you are going to append is already present
 
