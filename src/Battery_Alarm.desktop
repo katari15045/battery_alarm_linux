@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Battery_Alarm
+Comment=Raises an Alarm if Battery reaches critical level
+Exec=java -jar /home/saketh/Downloads/Battery_Alarm.jar
+Path=/home/saketh/Downloads
+Icon=/home/saketh/Downloads/battery.png
+Terminal=false
+Type=Application
+Categories=Utility;Development;

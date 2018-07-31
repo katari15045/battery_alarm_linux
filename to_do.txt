@@ -3,3 +3,6 @@
 
 2. Before appending a line in the crontab, check if the line that you are going to append is already present
 
+3. Create .desktop launcher for this app
+
+4. Detect if the application is already installed when user clicks on your app, If installed, show the threshold customization, uninstall screen

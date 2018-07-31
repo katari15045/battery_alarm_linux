@@ -3,6 +3,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Pos;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.event.EventHandler;
@@ -13,6 +14,8 @@ import java.io.File;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.lang.StringBuilder;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class DirChooser extends Application{
 
@@ -26,9 +29,11 @@ public class DirChooser extends Application{
 	public void start(Stage stage){
 		Label label = new Label();
 		label.setText(labelText);
+		label.setFont(Font.font(null, FontWeight.BOLD, 25));
 		Button button = new Button();
 		button.setText(buttonText);
 		button.setLineSpacing(90);
+		GridPane.setHalignment(button, HPos.CENTER);
 		button.setOnAction(new DirChooserHandler(stage));
 		GridPane gridPane = new GridPane();
 		gridPane.setAlignment(Pos.CENTER);
