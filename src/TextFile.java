@@ -31,10 +31,14 @@ public class TextFile{
 		return null;
 	}
 
-	public static void write(String file, String data){
+	public static void write(String fileName, String data){
 		PrintWriter pr = null;
 		try{
-			pr = new PrintWriter(file);
+			File file = new File(fileName);
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			pr = new PrintWriter(fileName);
 			pr.print(data);
 			pr.close();
 		}catch(Exception e){

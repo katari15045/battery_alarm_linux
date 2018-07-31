@@ -68,6 +68,7 @@ class DirChooserHandler implements EventHandler<ActionEvent>{
 			DirChooser.close(stage);
 			Main.setHomePath(selDir.getAbsolutePath());
 			displayAlertDialog();
+			Main.postInstall();
 		}
 	}
 
