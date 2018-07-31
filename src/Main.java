@@ -5,7 +5,7 @@ public class Main{
 	private static int threshold = 41;
 
 	public static void main(String[] args){
-		if(args[0].equals("install")){
+		if(args.length == 0 || args[0].equals("install")){
 			DirChooser.display();
 		}else if(args[0].equals("check")){
 			initHomePath();
@@ -28,20 +28,24 @@ public class Main{
 
 	private static void copyFiles(){
 		StringBuilder sb = new StringBuilder();
-		sb.append("cp -r ");
-		sb.append(Terminal.exec("pwd"));
-		sb.append("/* ");
+		sb.append("cp ");
+		sb.append(getJarPath());
+		sb.append(" ");
 		sb.append(homePath);
 		TextFile.write(homePath+"/temp.sh", sb.toString());
 		Terminal.exec("bash " + homePath + "/temp.sh");
 	}
 
+	private static String getJarPath(){
+		return Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	}
+
 	private static void prepareJobScript(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("export DISPLAY=:0\n");
-		sb.append("java -cp \"");
+		sb.append("java -jar ");
 		sb.append(homePath);
-		sb.append("\" Main \"check\"");
+		sb.append("/Battery_Alarm.jar check");
 		String data = sb.toString();
 		sb = new StringBuilder();
 		sb.append(homePath);
