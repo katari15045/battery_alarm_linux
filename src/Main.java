@@ -21,7 +21,22 @@ public class Main{
 	public static void postInstall(){
 		writeHomePathToFile();
 		String cronCommand = getCronCommand();
+		prepareJobScript();
 		Terminal.appendToCrontab(cronCommand, homePath);
+	}
+
+	private static void prepareJobScript(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("export DISPLAY=:0\n");
+		sb.append("java -cp \"");
+		sb.append(homePath);
+		sb.append("\" Main \"check\"");
+		String data = sb.toString();
+		sb = new StringBuilder();
+		sb.append(homePath);
+		sb.append("/job.sh");
+		String file = sb.toString();
+		TextFile.write(file, data);
 	}
 
 	private static String getCronCommand(){
