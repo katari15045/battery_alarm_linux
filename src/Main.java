@@ -2,7 +2,7 @@ import java.lang.StringBuilder;
 
 public class Main{
 	private static String homePath = null;
-	private static int threshold = 81;
+	private static int threshold = 41;
 
 	public static void main(String[] args){
 		if(args[0].equals("install")){
@@ -22,7 +22,18 @@ public class Main{
 		writeHomePathToFile();
 		String cronCommand = getCronCommand();
 		prepareJobScript();
+		copyFiles();
 		Terminal.appendToCrontab(cronCommand, homePath);
+	}
+
+	private static void copyFiles(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("cp -r ");
+		sb.append(Terminal.exec("pwd"));
+		sb.append("/* ");
+		sb.append(homePath);
+		TextFile.write(homePath+"/temp.sh", sb.toString());
+		Terminal.exec("bash " + homePath + "/temp.sh");
 	}
 
 	private static void prepareJobScript(){

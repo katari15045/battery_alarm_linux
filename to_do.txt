@@ -1,12 +1,7 @@
-1. homePath should be consistent accross all the systems; while installing the application, ask the user about the installation directory so that you can use installation directory in - crontab, crontab's shellScript, creating alreadyWarned.txt etc
 
-2. Provide the user an option to customize the threshold - 10 to 97
+1. Provide the user an option to customize the threshold - 10 to 97
 
-3. The warning message should be styled by increasing the font size of 1st line, 41% in 2nd line; also try changing the font color, style etc
+2. The warning message should be styled by increasing the font size of 1st line, 41% in 2nd line; also try changing the font color, style etc
 
-4. Before appending a line in the crontab, check if the line that you are going to append is already present
+3. Before appending a line in the crontab, check if the line that you are going to append is already present
 
-5. During installation, make sure that all the files (.class, .sh) are at the homePath by -
-	(i) a DirectoryChooser to choose downloaded directory
-	(ii) a shell script to copy all the files from the downloaded directory to homePath
-6. Programatically fill job.sh just before cronAppend

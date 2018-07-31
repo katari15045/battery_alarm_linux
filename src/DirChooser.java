@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import java.lang.StringBuilder;
 
 public class DirChooser extends Application{
 
@@ -66,10 +67,19 @@ class DirChooserHandler implements EventHandler<ActionEvent>{
 		File selDir = dc.showDialog(stage);
 		if(selDir != null){	
 			DirChooser.close(stage);
-			Main.setHomePath(selDir.getAbsolutePath());
+			String newDir = selDir.getAbsolutePath() + "/Battery_Alarm";
+			createNewDir(newDir);
+			Main.setHomePath(newDir);
 			displayAlertDialog();
 			Main.postInstall();
 		}
+	}
+
+	private void createNewDir(String dir){
+		StringBuilder sb = new StringBuilder();
+		sb.append("mkdir ");
+		sb.append(dir);
+		Terminal.exec(sb.toString());
 	}
 
 	private void displayAlertDialog(){
