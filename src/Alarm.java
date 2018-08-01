@@ -8,7 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class Home extends Application{
+public class Alarm extends Application{
 
 	private static int width = 400;
 	private static int height = 125;
@@ -33,7 +33,7 @@ public class Home extends Application{
 	}
 
 	public static void display(int level) {
-		Home.level = level;
+		Alarm.level = level;
 		launch((String[])null);
 	}
 }

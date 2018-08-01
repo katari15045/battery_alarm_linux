@@ -7,7 +7,7 @@ public class BatteryChecker{
 		boolean alreadyWarned = alreadyWarned();
 		int threshold = Main.getThreshold();
 		if(level <= threshold && (!isCharging) && (!alreadyWarned)){
-			Home.display(level);
+			Alarm.display(level);
 			if(!alreadyWarned){
 				TextFile.write(alreadyWarnedFile, "1");
 			}
