@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.lang.StringBuilder;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import java.lang.StringBuilder;
 
 public class DirChooser extends Application{
 
@@ -75,9 +76,69 @@ class DirChooserHandler implements EventHandler<ActionEvent>{
 			String newDir = selDir.getAbsolutePath() + "/Battery_Alarm";
 			createNewDir(newDir);
 			Main.setHomePath(newDir);
+			writeHomePathToFile();
+			String cronCommand = getCronCommand();
+			prepareJobScript();
+			copyFiles();
+			Terminal.appendToCrontab(cronCommand, Main.getHomePath());
+			storeThreshold(Main.getThreshold());
 			displayAlertDialog();
-			Main.postInstall();
 		}
+	}
+
+	public static void storeThreshold(int val){
+		StringBuilder sb = new StringBuilder();
+		sb.append(Main.getHomePath());
+		sb.append("/threshold.txt");
+		TextFile.write(sb.toString(), String.valueOf(val));
+	}
+
+	private static void copyFiles(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("cp ");
+		sb.append(getJarPath());
+		sb.append(" ");
+		sb.append(Main.getHomePath());
+		TextFile.write(Main.getHomePath()+"/temp.sh", sb.toString());
+		Terminal.exec("bash " + Main.getHomePath() + "/temp.sh");
+	}
+
+	private static String getJarPath(){
+		return Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+	}
+
+	private static void prepareJobScript(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("export DISPLAY=:0\n");
+		sb.append("java -jar ");
+		sb.append(Main.getHomePath());
+		sb.append("/Battery_Alarm.jar check");
+		String data = sb.toString();
+		sb = new StringBuilder();
+		sb.append(Main.getHomePath());
+		sb.append("/job.sh");
+		String file = sb.toString();
+		TextFile.write(file, data);
+	}
+
+	public static String getCronCommand(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("* * * * * bash ");
+		sb.append(Main.getHomePath()).append("/job.sh");
+		return sb.toString();
+	}
+
+	private static void writeHomePathToFile(){
+		String homePathFileLocation = getHomePathFileLocation();
+		TextFile.write(homePathFileLocation, Main.getHomePath());
+	}
+
+	public static String getHomePathFileLocation(){
+		String userHome = Terminal.getUserHome();
+		StringBuilder sb = new StringBuilder();
+		sb.append(userHome);
+		sb.append("/.Do_Not_Delete_homePath.txt");
+		return sb.toString();
 	}
 
 	private void createNewDir(String dir){

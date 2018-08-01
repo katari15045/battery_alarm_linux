@@ -7,77 +7,30 @@ public class Main{
 	public static void main(String[] args){
 		if(args.length == 0 || args[0].equals("install")){
 			if(Installer.isInstalled()){
-				System.out.println("Already Installed!");
+				restoreThreshold();
+				Home.display();
 			}else{
 				DirChooser.display();
 			}
 		}else if(args[0].equals("check")){
 			initHomePath();
+			restoreThreshold();
 			BatteryChecker.check();
 		}
 	}
 
+	public static void restoreThreshold(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(homePath);
+		sb.append("/threshold.txt");
+		threshold = Integer.valueOf(TextFile.read(sb.toString()));
+	}
+
 	public static void initHomePath(){
-		String homePathFileLocation = getHomePathFileLocation();	
+		String homePathFileLocation = DirChooserHandler.getHomePathFileLocation();	
 		homePath = TextFile.read(homePathFileLocation);
 	}
 
-	public static void postInstall(){
-		writeHomePathToFile();
-		String cronCommand = getCronCommand();
-		prepareJobScript();
-		copyFiles();
-		Terminal.appendToCrontab(cronCommand, homePath);
-	}
-
-	private static void copyFiles(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("cp ");
-		sb.append(getJarPath());
-		sb.append(" ");
-		sb.append(homePath);
-		TextFile.write(homePath+"/temp.sh", sb.toString());
-		Terminal.exec("bash " + homePath + "/temp.sh");
-	}
-
-	private static String getJarPath(){
-		return Main.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-	}
-
-	private static void prepareJobScript(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("export DISPLAY=:0\n");
-		sb.append("java -jar ");
-		sb.append(homePath);
-		sb.append("/Battery_Alarm.jar check");
-		String data = sb.toString();
-		sb = new StringBuilder();
-		sb.append(homePath);
-		sb.append("/job.sh");
-		String file = sb.toString();
-		TextFile.write(file, data);
-	}
-
-	public static String getCronCommand(){
-		StringBuilder sb = new StringBuilder();
-		sb.append("* * * * * bash ");
-		sb.append(homePath).append("/job.sh");
-		return sb.toString();
-	}
-
-	private static void writeHomePathToFile(){
-		String homePathFileLocation = getHomePathFileLocation();
-		TextFile.write(homePathFileLocation, homePath);
-	}
-
-	public static String getHomePathFileLocation(){
-		String userHome = Terminal.getUserHome();
-		StringBuilder sb = new StringBuilder();
-		sb.append(userHome);
-		sb.append("/.Do_Not_Delete_homePath.txt");
-		return sb.toString();
-	}
-	
 	public static int getThreshold(){
 		return threshold;
 	}
