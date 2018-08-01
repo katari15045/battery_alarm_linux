@@ -3,6 +3,9 @@
 
 2. Before appending a line in the crontab, check if the line that you are going to append is already present
 
-3. Create .desktop launcher for this app
+3. Programatically fill .desktop file
 
-4. Detect if the application is already installed when user clicks on your app, If installed, show the threshold customization, uninstall screen
+4. Detect if the application is already installed when user clicks on your app, If installed, show the threshold customization, uninstall screenHow to check if installed?
+	(i) ~/.Do_Not_Delete_homePath.txt should be present
+	(ii) crontab -l should have the line that you are expecting - * * * * * bash /home/saketh/Documents/cron_jobs/Battery_Alarm/job.sh
+	(iii) Installation folder should have jar file

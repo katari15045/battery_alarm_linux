@@ -2,9 +2,14 @@ import java.lang.StringBuilder;
 
 public class Main{
 	private static String homePath = null;
-	private static int threshold = 81;
+	private static int threshold = 41;
 
 	public static void main(String[] args){
+		if(Installer.isInstalled()){
+			System.out.println("Installed");
+		}else{
+			System.out.println("Not Installed");
+		}
 		if(args.length == 0 || args[0].equals("install")){
 			DirChooser.display();
 		}else if(args[0].equals("check")){
@@ -66,7 +71,7 @@ public class Main{
 		TextFile.write(homePathFileLocation, homePath);
 	}
 
-	private static String getHomePathFileLocation(){
+	public static String getHomePathFileLocation(){
 		String userHome = Terminal.getUserHome();
 		StringBuilder sb = new StringBuilder();
 		sb.append(userHome);
