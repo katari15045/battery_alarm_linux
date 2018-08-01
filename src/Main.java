@@ -18,7 +18,7 @@ public class Main{
 		}
 	}
 
-	private static void initHomePath(){
+	public static void initHomePath(){
 		String homePathFileLocation = getHomePathFileLocation();	
 		homePath = TextFile.read(homePathFileLocation);
 	}
@@ -59,7 +59,7 @@ public class Main{
 		TextFile.write(file, data);
 	}
 
-	private static String getCronCommand(){
+	public static String getCronCommand(){
 		StringBuilder sb = new StringBuilder();
 		sb.append("* * * * * bash ");
 		sb.append(homePath).append("/job.sh");

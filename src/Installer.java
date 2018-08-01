@@ -13,7 +13,13 @@ public class Installer{
 	}
 
 	private static boolean isCronJobPresent(){
-		return true;
+		Main.initHomePath();
+		String cronCommand = Main.getCronCommand();
+		String cronOutput = Terminal.exec("crontab -l");
+		if(cronOutput.contains("\n" + cronCommand) || cronOutput.substring(0, cronCommand.length()).equals(cronCommand)){
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean isBaseFilePresent(){

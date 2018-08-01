@@ -4,6 +4,7 @@ import java.lang.StringBuilder;
 
 public class Terminal{
 	public static String exec(String command){
+		boolean isFirst = true;
 		Process process = null;
 		BufferedReader bufferedReader = null;
 		String currentLine = null;
@@ -14,6 +15,11 @@ public class Terminal{
 			bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream() ) );
 			currentLine = bufferedReader.readLine();
 			while( currentLine != null ){
+				if(!isFirst){
+					output.append("\n");
+				}else{
+					isFirst = false;
+				}
 				output.append(currentLine);
 				currentLine = bufferedReader.readLine();
 			}
