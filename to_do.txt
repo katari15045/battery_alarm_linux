@@ -8,4 +8,4 @@
 4. Detect if the application is already installed when user clicks on your app, If installed, show the threshold customization, uninstall screenHow to check if installed?
 	(i) ~/.Do_Not_Delete_homePath.txt should be present
 	(ii) crontab -l should have the line that you are expecting - * * * * * bash /home/saketh/Documents/cron_jobs/Battery_Alarm/job.sh
-	(iii) Installation folder should have jar file
+	(iii) Installation folder should have Battery_Alarm.jar, job.sh
